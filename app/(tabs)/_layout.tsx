@@ -2,20 +2,22 @@ import { Tabs, useRouter } from "expo-router";
 import { FileSliders, StickyNote, User } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import InstanceSelector from "@/components/Global/InstanceSelector";
 import Toast from "react-native-toast-message";
 import IUserSchoolAssociation from "@/interfaces/IUserSchoolAssociation";
 import { TypeUser } from "@/Enum/TypeUser";
 import React from "react";
+import { useSession } from "@/Context/AuthContext";
 
 export default function TabLayout() {
   const router = useRouter();
   const [ready, setReady] = useState(false);
   const [isProfessor, setIsProfessor] = useState(false);
 
+  const { checkSession } = useSession();
+
   useEffect(() => {
-    let count = 0;
     setTimeout(() => {
       setReady(true);
     }, 0);

@@ -38,12 +38,11 @@ export default function Register() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your email"
+          placeholder="Insira seu e-mail"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -54,7 +53,7 @@ export default function Register() {
         <Text style={styles.label}>Usuário</Text>
         <TextInput
           style={styles.input}
-          placeholder="Choose a username"
+          placeholder="Escolha um nome de usuário"
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
@@ -64,14 +63,14 @@ export default function Register() {
         <Text style={styles.label}>Senha</Text>
         <TextInput
           style={styles.input}
-          placeholder="Create a password"
+          placeholder="Crie uma senha"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
+        <Text style={styles.buttonText}>Criar Conta</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#1e1f22",
   },
   title: {
     fontSize: 28,
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    color: "#333",
+    color: "#fff",
     marginBottom: 5,
   },
   input: {
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#4a5568",
     padding: 15,
     borderRadius: 5,
     alignItems: "center",

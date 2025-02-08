@@ -17,7 +17,7 @@ const AuthContext = createContext<{
   ) => Promise<AuthContextData | undefined>;
   updateToken: (user: string, schoolName: string) => Promise<boolean>;
   signOut: () => void;
-  checkSession: () => boolean;
+  checkSession: () => Promise<boolean>;
   getUserDataSession: () => IUserSchoolAssociation[] | undefined;
   session?: string | null;
   isLoading: boolean;
@@ -25,15 +25,18 @@ const AuthContext = createContext<{
   signIn: () => Promise.resolve(undefined),
   updateToken: () => Promise.resolve(false),
   signOut: () => {},
-  checkSession: () => false,
+  checkSession: () => Promise.resolve(false),
   getUserDataSession: () => [],
   session: null,
   isLoading: true,
 });
 
 export function useSession() {
-  const value = useContext(AuthContext);
-  return value;
+  if (AuthContext) {
+    const value = useContext(AuthContext);
+    return value;
+  }
+  return null;
 }
 
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -98,11 +101,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         },
         signOut: () => {
           setSession(null);
-          SecureStore.deleteItemAsync("users");
         },
-        checkSession: () => {
+        checkSession: async () => {
           if (session) {
-            SecureStore.getItemAsync("session").then((data) => {
+            return SecureStore.getItemAsync("session").then((data) => {
               if (data == null) {
                 return false;
               }
@@ -120,7 +122,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
               return true;
             });
           }
-          return false;
         },
         getUserDataSession: () => {
           return getUserData();
@@ -211,7 +212,7 @@ const getUserData = () => {
   const result = SecureStore.getItem("users");
 
   if (result == null) {
-    return;
+    return null;
   }
 
   const users = JSON.parse(result) as IUserSchoolAssociation[];

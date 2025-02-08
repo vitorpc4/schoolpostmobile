@@ -1,5 +1,4 @@
 import Post from "@/components/Posts/posts";
-import { useSession } from "@/Context/AuthContext";
 import PostRepository from "@/http/repository/PostRepository/PostRepository";
 import IPost from "@/interfaces/IPost";
 import { useCallback, useEffect, useRef, useState } from "react";

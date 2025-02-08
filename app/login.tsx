@@ -1,8 +1,8 @@
 import { ApiResponse } from "@/http/Models/Responses/ApiResponse";
 import { IloginResponse } from "@/http/Models/Responses/Login/ILoginResponse";
 import LoginRepository from "@/http/repository/LoginRepository/LoginRepository";
-import { Link, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { Link, useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -13,14 +13,14 @@ import {
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { useSession } from "@/Context/AuthContext";
-import { useRoute } from "@react-navigation/native";
+import { LogInIcon, UserRoundPlus } from "lucide-react-native";
 
 export default function Login() {
   const expoRouter = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useSession();
+  const { signIn, checkSession } = useSession();
 
   const handleLogin = () => {
     signIn(email, password)
@@ -45,9 +45,17 @@ export default function Login() {
     expoRouter.push("/register");
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      const res = SecureStore.getItem("session");
+      if (res) {
+        expoRouter.push("/(tabs)/(posts)");
+      }
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -63,10 +71,12 @@ export default function Login() {
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+        <LogInIcon size={24} color="#fff" style={{ marginRight: 5 }} />
+        <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonRegister} onPress={createCount}>
-        <Text style={styles.buttonText}>cadastrar</Text>
+        <UserRoundPlus size={24} color="#fff" style={{ marginRight: 5 }} />
+        <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -78,37 +88,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
+    backgroundColor: "#1e1f22",
   },
   input: {
     width: "100%",
     height: 50,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#4a5568",
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
     fontSize: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#4a5568",
+    color: "#ffffff",
   },
   button: {
+    flexDirection: "row",
     width: "100%",
     height: 50,
-    backgroundColor: "#007bff",
+    backgroundColor: "#4a5568",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
   },
   buttonRegister: {
+    flexDirection: "row",
     width: "100%",
     height: 50,
-    backgroundColor: "#007bff",
+    backgroundColor: "#4a5568",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,

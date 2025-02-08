@@ -15,6 +15,7 @@ import {
 import * as secure from "expo-secure-store";
 import IUserSchoolAssociation from "@/interfaces/IUserSchoolAssociation";
 import { IUserAssociation } from "@/http/Models/Responses/Users/IUserAssociation";
+import { useSession } from "@/Context/AuthContext";
 
 export default function User() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function User() {
   const [hasMore, setHasMore] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const firstRender = useRef(true);
+  const { checkSession } = useSession();
 
   const loadMoreUsers = async () => {
     if (loading || !hasMore) return;
