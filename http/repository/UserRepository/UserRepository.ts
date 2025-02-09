@@ -6,6 +6,13 @@ import { IGetUserAssocationResponse } from "@/http/Models/Responses/Users/GetUse
 import TransformResponse from "@/http/Utils/transform";
 
 class UserRepository extends HttpClient {
+  apiUrl: string;
+
+  constructor() {
+    super();
+    this.apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  }
+
   public async GetUsersBySchoolId(
     schoolId: string,
     page: number,
@@ -15,7 +22,7 @@ class UserRepository extends HttpClient {
 
     const result = await instance
       .get(
-        `http://10.0.2.2:3001/association/user/school/${schoolId}?page=${page}&limit=${limit}`
+        `${this.apiUrl}/association/user/school/${schoolId}?page=${page}&limit=${limit}`
       )
       .then(TransformResponse);
 
@@ -32,7 +39,7 @@ class UserRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .post(`http://10.0.2.2:3001/user/createUserAndAssociation`, data)
+      .post(`${this.apiUrl}/user/createUserAndAssociation`, data)
       .then(TransformResponse);
 
     return result as ApiResponse<any>;
@@ -42,7 +49,7 @@ class UserRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .put(`http://10.0.2.2:3001/user/${id}`, data)
+      .put(`${this.apiUrl}/user/${id}`, data)
       .then(TransformResponse);
 
     return result as ApiResponse<any>;
@@ -52,7 +59,7 @@ class UserRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .delete(`http://10.0.2.2:3001/association/${id}`)
+      .delete(`${this.apiUrl}/association/${id}`)
       .then(TransformResponse);
 
     return result as ApiResponse<any>;
