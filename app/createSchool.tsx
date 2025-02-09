@@ -33,10 +33,10 @@ export default function CreateSchoolScreen() {
       style={styles.container}
     >
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Create a New School</Text>
+        <Text style={styles.title}>Criar Escola</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter school name"
+          placeholder="Insira o nome da escola"
           value={schoolName}
           onChangeText={setSchoolName}
           autoCapitalize="words"
@@ -46,7 +46,7 @@ export default function CreateSchoolScreen() {
           onPress={handleCreateSchool}
           disabled={!schoolName}
         >
-          <Text style={styles.buttonText}>Create School</Text>
+          <Text style={styles.buttonText}>Criar</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
