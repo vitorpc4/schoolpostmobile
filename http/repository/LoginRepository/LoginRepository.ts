@@ -7,11 +7,20 @@ import TransformResponse from "../../Utils/transform";
 import IRegisterPost from "@/http/Models/Requests/Login/IRegisterPost";
 
 class LoginRepository extends HttpClient {
+  apiUrl: string;
+
+  constructor() {
+    super();
+    this.apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  }
+
   public async Login(data: ILoginPost): Promise<any> {
     const instance = await this.createInstance();
 
+    console.log(this.apiUrl);
+
     const result = await instance
-      .post(`http://10.0.2.2:3001/auth/login/`, data)
+      .post(`${this.apiUrl}/auth/login/`, data)
       .then(TransformResponse);
 
     return result as ApiResponse<IloginResponse>;
@@ -20,7 +29,7 @@ class LoginRepository extends HttpClient {
   public async register(data: IRegisterPost): Promise<any> {
     const instance = await this.createInstance();
     const result = await instance
-      .post(`http://10.0.2.2:3001/auth/register/`, data)
+      .post(`${this.apiUrl}/auth/register/`, data)
       .then(TransformResponse);
     return result as ApiResponse<IRegisterResponse>;
   }

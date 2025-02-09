@@ -6,6 +6,13 @@ import { IPostCreateRequest } from "@/http/Models/Requests/Posts/IPostCreateRequ
 import IPost from "@/interfaces/IPost";
 
 class PostRepository extends HttpClient {
+  apiUrl: string;
+
+  constructor() {
+    super();
+    this.apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  }
+
   public async GetPosts(
     page: number,
     limit: number,
@@ -14,7 +21,7 @@ class PostRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .get(`http://10.0.2.2:3001/posts/?page=${page}&limit=${limit}`, {
+      .get(`${this.apiUrl}/posts/?page=${page}&limit=${limit}`, {
         headers: {
           schoolId: schoolId,
         },
@@ -38,7 +45,7 @@ class PostRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .get(`http://10.0.2.2:3001/posts/allposts/?page=${page}&limit=${limit}`, {
+      .get(`${this.apiUrl}/posts/allposts/?page=${page}&limit=${limit}`, {
         headers: {
           schoolId: schoolId,
         },
@@ -61,7 +68,7 @@ class PostRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .post(`http://10.0.2.2:3001/posts`, post, {
+      .post(`${this.apiUrl}/posts`, post, {
         headers: {
           schoolId: schoolId,
         },
@@ -78,7 +85,7 @@ class PostRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .put(`http://10.0.2.2:3001/posts/${post.id}`, post, {
+      .put(`${this.apiUrl}/posts/${post.id}`, post, {
         headers: {
           schoolId: schoolId,
         },
@@ -95,7 +102,7 @@ class PostRepository extends HttpClient {
     const instance = await this.createInstance();
 
     const result = await instance
-      .delete(`http://10.0.2.2:3001/posts/${id}`, {
+      .delete(`${this.apiUrl}/posts/${id}`, {
         headers: {
           schoolId: schoolId,
         },
