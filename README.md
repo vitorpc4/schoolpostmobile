@@ -14,6 +14,7 @@ O backend desta aplicação já foi desenvolvido e está disponível no seguinte
 # Tecnologias
 
 Backend: NestJS, Express, PostgreSQL
+
 Frontend Mobile: React Native, CSS
 
 # Instalação
@@ -43,7 +44,7 @@ EXPO_PUBLIC_API_URL=http://10.0.2.2:3001
 npm install
 
 # Após a instalação dos pacotes, execute o projeto com o comando abaixo
-npm expo start
+npx expo start
 
 ```
 

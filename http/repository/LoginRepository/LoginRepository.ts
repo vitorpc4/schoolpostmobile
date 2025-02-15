@@ -17,8 +17,6 @@ class LoginRepository extends HttpClient {
   public async Login(data: ILoginPost): Promise<any> {
     const instance = await this.createInstance();
 
-    console.log(this.apiUrl);
-
     const result = await instance
       .post(`${this.apiUrl}/auth/login/`, data)
       .then(TransformResponse);
