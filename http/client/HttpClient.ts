@@ -7,7 +7,7 @@ export default abstract class HttpClient {
 
   protected async createInstance(): Promise<AxiosInstance> {
     this.instance = axios.create({
-      baseURL: "http://10.0.2.2:3001",
+      baseURL: process.env.EXPO_PUBLIC_API_URL,
       headers: {
         "Content-Type": "application/json",
       },

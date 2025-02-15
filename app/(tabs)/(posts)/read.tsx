@@ -74,8 +74,6 @@ export default function ReadPost() {
             }}
           />
         </View>
-
-        {/* <Text style={styles.description}>{description}</Text> */}
       </ScrollView>
     </View>
   );
